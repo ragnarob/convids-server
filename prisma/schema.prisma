@@ -35,23 +35,11 @@ model event {
 model maker {
   id          Int     @id @default(autoincrement())
   name        String
+  youtubeLink String?
   links       String?
   country     String
+  furtrackTag String?
   videos      video[]
-}
-
-model songArtist {
-  id     Int    @id @default(autoincrement())
-  name   String
-  songs  song[]
-}
-
-model song {
-  id          Int            @id @default(autoincrement())
-  title       String
-  artistId    Int
-  artist      songArtist     @relation(fields: [artistId], references: [id])
-  videos      videoSong[]
 }
 
 model video {
@@ -63,13 +51,5 @@ model video {
   maker       maker          @relation(fields: [makerId], references: [id])
   url         String
   date        DateTime
-  songs       videoSong[]
-}
-
-model videoSong {
-  id      Int   @id @default(autoincrement())
-  videoId Int
-  songId  Int
-  video   video @relation(fields: [videoId], references: [id])
-  song    song  @relation(fields: [songId], references: [id])
+  songs       String?
 }

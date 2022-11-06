@@ -37,7 +37,7 @@ const schema = buildSchema(`
     maker: Maker!
     url: String!
     date: String!
-    songs: [Song]
+    songs: String
   }
   type VideoResponse {
     data: Video
@@ -48,7 +48,8 @@ const schema = buildSchema(`
   type Maker {
     id: Int!
     name: String!
-    links: [String]
+    youtubeLink: String
+    links: String
     country: String!
     furtrackTag: String
   }
@@ -56,16 +57,6 @@ const schema = buildSchema(`
     data: Maker
     error: String
     ok: Boolean
-  }
-
-  type SongArtist {
-    id: Int!
-    name: String!
-  }
-  type Song {
-    id: Int!
-    title: String!
-    artist: SongArtist!
   }
 
   type Query {
@@ -77,8 +68,6 @@ const schema = buildSchema(`
     video(id: Int!): Video!
     makers(limit: Int): [Maker!]
     maker(id: Int!): Maker!
-    artists(limit: Int): [SongArtist!]
-    artist(id: Int!): SongArtist!
   }
 
   type Mutation {
@@ -100,8 +89,17 @@ const schema = buildSchema(`
       name: String!
       country: String!
       furtrackTag: String
+      youtubeLink: String
       links: String
     ): MakerResponse
+    addVideo(
+      title: String!
+      eventId: Int
+      makerId: Int!
+      url: String!
+      date: String!
+      songs: String
+    ): VideoResponse
   }
 `);
 

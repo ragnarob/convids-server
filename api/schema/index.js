@@ -1,14 +1,11 @@
 const schema = require("./schema");
-const eventMutation = require("./mutations/event.mutation");
-const videoMutation = require("./mutations/video.mutation");
-const makerMutations = require("./mutations/maker.mutation");
-const query = require("./query");
+
+const queries = require("./queries");
+const mutations = require("./mutations");
 
 const resolvers = {
-  ...query,
-  ...eventMutation,
-  ...videoMutation,
-  ...makerMutations,
+  ...queries,
+  ...mutations,
 };
 
 module.exports = {
