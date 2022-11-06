@@ -106,10 +106,3 @@ const schema = buildSchema(`
 `);
 
 module.exports = schema;
-
-// addVideo(title: String!, eventId: ID, makerId: ID!, url: String!, date: String!, songs: [Song]): VideoResponse
-// updateVideo(id: ID!, title: String, eventId: ID, makerId: ID, url: String, date: String, songs: [Song]): VideoResponse
-// deleteVideo(id: ID!): VideoResponse
-// addMaker(name: String!, links: [String], country: String!): Maker
-// updateMaker(id: ID!, name: String, links: [String], country: String): Maker
-// deleteMaker(id: ID!): Maker
