@@ -2,7 +2,7 @@ const { buildSchema } = require("graphql");
 
 const schema = buildSchema(`
   type Event {
-    id: ID!
+    id: Int!
     title: String!
     shortTitle: String
     furtrackTag: String
@@ -16,12 +16,13 @@ const schema = buildSchema(`
   }
 
   type RecurringEvent {
-    id: ID!
+    id: Int!
     title: String!
     shortTitle: String
     furtrackTag: String
     country: String!
-    links: [String]
+    links: String
+    events: [Event]
   }
   type RecurringEventResponse {
     data: RecurringEvent
@@ -29,7 +30,7 @@ const schema = buildSchema(`
     ok: Boolean
   }
   type Video {
-    id: ID!
+    id: Int!
     title: String!
     event: Event
     maker: Maker!
@@ -43,34 +44,47 @@ const schema = buildSchema(`
     ok: Boolean
   }
   type Maker {
-    id: ID!
+    id: Int!
     name: String!
     links: [String]
     country: String!
   }
   type SongArtist {
-    id: ID!
+    id: Int!
     name: String!
   }
   type Song {
-    id: ID!
+    id: Int!
     title: String!
     artist: SongArtist!
   }
   type Query {
     events(limit: Int): [Event!]!
-    event(id: ID!): Event!
+    event(id: Int!): Event!
+    recurringEvents(limit: Int): [RecurringEvent!]!
+    recurringEvent(id: Int!): RecurringEvent!
     videos(limit: Int, searchText: String): [Video!]
-    video(id: ID!): Video!
+    video(id: Int!): Video!
     makers(limit: Int): [Maker!]
-    maker(id: ID!): Maker!
+    maker(id: Int!): Maker!
     artists(limit: Int): [SongArtist!]
-    artist(id: ID!): SongArtist!
+    artist(id: Int!): SongArtist!
   }
   type Mutation {
-    addEvent(title: String!, country: String!, date: String!, links: [String]): EventResponse
-    updateEvent(id: ID!, title: String, country: String, date: String, links: [String]): EventResponse
-    deleteEvent(id: ID!): EventResponse
+    addRecurringEvent(
+      title: String!
+      shortTitle: String
+      furtrackTag: String
+      country: String!
+      links: String
+    ): RecurringEventResponse
+    addEvent(
+      title: String!
+      shortTitle: String
+      furtrackTag: String
+      date: String!
+      recurringEventId: Int
+    ): EventResponse
   }
 `);
 

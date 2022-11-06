@@ -13,12 +13,13 @@ type EventResponse {
 }
 
 type RecurringEvent {
-  id: ID!
+  id: Int!
   title: String!
   shortTitle: String
   furtrackTag: String
   country: String!
-  links: [String]
+  links: String
+  events: [Event]
 }
 type RecurringEventResponse {
   data: RecurringEvent
@@ -66,18 +67,18 @@ type Query {
   artist(id: ID!): SongArtist!
 }
 type Mutation {
+  addRecurringEvent(
+    title: String!
+    shortTitle: String
+    furtrackTag: String
+    country: String!
+    links: String
+  ): RecurringEventResponse
   addEvent(
     title: String!
-    country: String!
+    shortTitle: String
+    furtrackTag: String
     date: String!
-    links: [String]
+    recurringEventId: Int!
   ): EventResponse
-  updateEvent(
-    id: ID!
-    title: String
-    country: String
-    date: String
-    links: [String]
-  ): EventResponse
-  deleteEvent(id: ID!): EventResponse
 }

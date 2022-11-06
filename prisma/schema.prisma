@@ -18,7 +18,7 @@ model recurringEvent {
   furtrackTag String?
   country     String
   links       String?
-  event       event[]
+  events      event[]
 }
 
 model event {

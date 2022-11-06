@@ -27,6 +27,9 @@ const query = {
   recurringEvents: async function ({ limit }, context) {
     const recurringEvents = context.prismaClient.recurringEvent.findMany({
       limit: limit || undefined,
+      include: {
+        events: true,
+      },
     });
     return recurringEvents;
   },
