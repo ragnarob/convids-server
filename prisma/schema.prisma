@@ -29,4 +29,47 @@ model event {
   date             DateTime
   recurringEventId Int
   recurringEvent   recurringEvent @relation(fields: [recurringEventId], references: [id])
+  videos           video[]
+}
+
+model maker {
+  id          Int     @id @default(autoincrement())
+  name        String
+  links       String?
+  country     String
+  videos      video[]
+}
+
+model songArtist {
+  id     Int    @id @default(autoincrement())
+  name   String
+  songs  song[]
+}
+
+model song {
+  id          Int            @id @default(autoincrement())
+  title       String
+  artistId    Int
+  artist      songArtist     @relation(fields: [artistId], references: [id])
+  videos      videoSong[]
+}
+
+model video {
+  id          Int            @id @default(autoincrement())
+  title       String
+  eventId     Int?
+  event       event?         @relation(fields: [eventId], references: [id])
+  makerId     Int
+  maker       maker          @relation(fields: [makerId], references: [id])
+  url         String
+  date        DateTime
+  songs       videoSong[]
+}
+
+model videoSong {
+  id      Int   @id @default(autoincrement())
+  videoId Int
+  songId  Int
+  video   video @relation(fields: [videoId], references: [id])
+  song    song  @relation(fields: [songId], references: [id])
 }

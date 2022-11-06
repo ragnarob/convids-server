@@ -1,5 +1,5 @@
 type Event {
-  id: ID!
+  id: Int!
   title: String!
   shortTitle: String
   furtrackTag: String
@@ -26,9 +26,8 @@ type RecurringEventResponse {
   error: String
   ok: Boolean
 }
-
 type Video {
-  id: ID!
+  id: Int!
   title: String!
   event: Event
   maker: Maker!
@@ -42,29 +41,31 @@ type VideoResponse {
   ok: Boolean
 }
 type Maker {
-  id: ID!
+  id: Int!
   name: String!
   links: [String]
   country: String!
 }
 type SongArtist {
-  id: ID!
+  id: Int!
   name: String!
 }
 type Song {
-  id: ID!
+  id: Int!
   title: String!
   artist: SongArtist!
 }
 type Query {
   events(limit: Int): [Event!]!
-  event(id: ID!): Event!
+  event(id: Int!): Event!
+  recurringEvents(limit: Int): [RecurringEvent!]!
+  recurringEvent(id: Int!): RecurringEvent!
   videos(limit: Int, searchText: String): [Video!]
-  video(id: ID!): Video!
+  video(id: Int!): Video!
   makers(limit: Int): [Maker!]
-  maker(id: ID!): Maker!
+  maker(id: Int!): Maker!
   artists(limit: Int): [SongArtist!]
-  artist(id: ID!): SongArtist!
+  artist(id: Int!): SongArtist!
 }
 type Mutation {
   addRecurringEvent(
@@ -79,6 +80,6 @@ type Mutation {
     shortTitle: String
     furtrackTag: String
     date: String!
-    recurringEventId: Int!
+    recurringEventId: Int
   ): EventResponse
 }

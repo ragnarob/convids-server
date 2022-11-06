@@ -24,6 +24,7 @@ const query = {
     });
     return event;
   },
+
   recurringEvents: async function ({ limit }, context) {
     const recurringEvents = context.prismaClient.recurringEvent.findMany({
       limit: limit || undefined,
@@ -41,6 +42,7 @@ const query = {
     });
     return recurringEvent;
   },
+
   videos: async function ({ limit, searchText }, context) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -76,20 +78,20 @@ const query = {
     const video = videosData.find((video) => video.id === id);
     return video;
   },
+
   makers: async function ({ limit }, context) {
-    return limit ? makersData.slice(0, limit) : makersData;
+    const makers = context.prismaClient.maker.findMany({
+      limit: limit || undefined,
+    });
+    return makers;
   },
   maker: async function ({ id }, context) {
-    const maker = makersData.find((maker) => maker.id === id);
+    const maker = context.prismaClient.maker.findUnique({
+      where: {
+        id: id,
+      },
+    });
     return maker;
-  },
-  artists: async function ({ limit }, context) {
-    console.log(artistsData);
-    return limit ? artistsData.slice(0, limit) : artistsData;
-  },
-  artist: async function ({ id }, context) {
-    const artist = artistsData.find((artist) => artist.id === id);
-    return artist;
   },
 };
 
